@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "module": "umd",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./",
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "rootDir": "./src",
+    "sourceRoot": "../src",
+    "sourceMap": true,
+    "target": "es6"
+  },
+  "exclude": [
+    "gulpfile.babel.js",
+    "node_modules",
+    "lib",
+    "test"
+  ]
+}
