@@ -1,5 +1,8 @@
 "use strict";
 
+// Babel
+import "babel-polyfill";
+
 // Tools
 import gulp from "gulp";
 import gutil from "gulp-util";
