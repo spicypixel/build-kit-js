@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "declaration": true,
     "module": "umd",
     "moduleResolution": "node",
+    "noEmitOnError": true,
     "noImplicitAny": true,
+    "noResolve": true,
     "outDir": "./",
     "preserveConstEnums": true,
     "removeComments": false,

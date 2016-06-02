@@ -33,7 +33,9 @@ export default class TypeSriptBuilder {
     let mapRoot = project.options.mapRoot || outDir;
     let sourceRoot = project.options.sourceRoot || path.relative(outDir, rootDir);
 
-    let tsSources = path.join(rootDir, "**/*.ts");
+    let tsSources = path.join(rootDir, "**/*.ts"); // includes ambient
+    let tsdSources = path.join(rootDir, "**/*.d.ts"); // ambient only
+    let jsSources = path.join(rootDir, "**/*.js");
 
     return new Promise((resolve, reject) => {
       let lint;
@@ -50,7 +52,9 @@ export default class TypeSriptBuilder {
       return new Promise((resolve, reject) => {
         let tsc = project.src()
           .pipe(gulpif(project.options.sourceMap, sourceMaps.init({ loadMaps: true })))
-          .pipe(ts(project));
+          .pipe(ts(project))
+          .once("end", resolve)
+          .once("error", reject);
 
         let js = tsc.js
           .pipe(gulpif(project.options.sourceMap, sourceMaps.write(mapRoot, {
@@ -70,8 +74,8 @@ export default class TypeSriptBuilder {
       return new Promise((resolve, reject) => {
         // Copy extra JS and ambient declarations
         gulp.src([
-          path.join(rootDir, "**/*.d.ts"),
-          path.join(rootDir, "**/*.js")
+          tsdSources,
+          jsSources
           ], { base: rootDir })
           .pipe(gulp.dest(outDir))
           .once("end", resolve)
@@ -249,13 +253,18 @@ ts.createProject = function createProject(fileNameOrSettings, settings) {
   let sourceRoot = settings.sourceRoot;
   delete settings.sourceRoot;
 
-  // var project = originalCreateProject(settings);
+//   var project = originalCreateProject(settings);
 
-  // if (tsConfigFileName) {
-  //   project.configFileName = tsConfigFileName;
-  //   project.projectDirectory = projectDirectory;
-  //   project.config = tsConfigContent;
-  // }
+//   if (tsConfigFileName) {
+//     project.configFileName = tsConfigFileName;
+//     project.projectDirectory = projectDirectory;
+//     project.config = tsConfigContent;
+//   }
+
+//   if (sourceRoot)
+//     settings.sourceRoot = sourceRoot;
+
+//   return project;
 
   var project = new Project(tsConfigFileName, projectDirectory, tsConfigContent, getCompilerOptions(settings, projectDirectory, tsConfigFileName), settings.noExternalResolve ? true : false, settings.sortOutput ? true : false, settings.typescript);
   // Isolated modules are only supported when using TS1.5+

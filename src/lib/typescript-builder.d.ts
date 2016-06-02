@@ -1,12 +1,12 @@
 import * as ts from "gulp-typescript";
 
-declare interface TypeScriptCompileTaskOptions {
+export interface TypeScriptCompileTaskOptions {
   lint?: boolean;
   projectFile?: string;
-  compilerOptions?: ts.Settings;
+  compilerOptions?: ts.Params;
 }
 
-declare class TypeScriptBuilder {
+export default class TypeScriptBuilder {
   static compileAsync(project: ts.Project, options?: TypeScriptCompileTaskOptions): Promise<any>;
   static compileAsync(options?: TypeScriptCompileTaskOptions): Promise<any>;
 }
