@@ -18,8 +18,6 @@
   "devDependencies": {},
   "dependencies": {
     "babel-core": "^6.9.1",
-    "babel-plugin-syntax-async-functions": "^6.8.0",
-    "babel-plugin-transform-regenerator": "^6.9.0",
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
