@@ -1,7 +1,7 @@
 "use strict";
 
 // Tools
-import 'babel-polyfill'
+// import 'babel-polyfill'
 import gulp from "gulp";
 import gutil from "gulp-util";
 import mocha from "gulp-mocha";
