@@ -4,8 +4,8 @@ import mocha from "gulp-mocha";
 import del from "del";
 import TypeScriptBuilder from "./src/lib/typescript-builder";
 
-function clean() {
-  return del(["lib", "test", "test-output"]);
+async function clean() {
+  await del(["lib", "test", "test-output"]);
 }
 
 async function build() {
