@@ -6,6 +6,7 @@ import gulpif from "gulp-if";
 import ts from "gulp-typescript";
 import tslint from "gulp-tslint";
 import typescript from "typescript";
+import babel from "gulp-babel";
 
 // Streams and process
 import eventStream from "event-stream";
@@ -27,6 +28,12 @@ export default class TypeSriptBuilder {
     }
 
     if (!options.lint) options.lint = true;
+    if (!options.babel) {
+        if (project.options.target === typescript.ScriptTarget.ES6)
+            options.babel = true;
+        else
+            options.babel = false;
+    }
 
     let rootDir = project.options.rootDir || "./";
     let outDir = project.options.outDir || "./";
@@ -34,7 +41,7 @@ export default class TypeSriptBuilder {
     let sourceRoot = project.options.sourceRoot || path.relative(outDir, rootDir);
 
     let tsSources = path.join(rootDir, "**/*.ts"); // includes ambient
-    let tsdSources = path.join(rootDir, "**/*.d.ts"); // ambient only
+    let dtsSources = path.join(rootDir, "**/*.d.ts"); // ambient only
     let jsSources = path.join(rootDir, "**/*.js");
 
     return new Promise((resolve, reject) => {
@@ -57,6 +64,7 @@ export default class TypeSriptBuilder {
           .once("error", reject);
 
         let js = tsc.js
+          .pipe(gulpif(options.babel, babel()))
           .pipe(gulpif(project.options.sourceMap, sourceMaps.write(mapRoot, {
             includeContent: false,
             sourceRoot: sourceRoot
@@ -73,10 +81,16 @@ export default class TypeSriptBuilder {
     }).then(() => {
       return new Promise((resolve, reject) => {
         // Copy extra JS and ambient declarations
-        gulp.src([
-          tsdSources,
-          jsSources
-          ], { base: rootDir })
+        gulp.src(dtsSources, { base: rootDir })
+          .pipe(gulp.dest(outDir))
+          .once("end", resolve)
+          .once("error", reject);
+      });
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        // Copy extra JS and ambient declarations
+        gulp.src(jsSources, { base: rootDir })
+          .pipe(gulpif(options.babel, babel()))
           .pipe(gulp.dest(outDir))
           .once("end", resolve)
           .once("error", reject);
