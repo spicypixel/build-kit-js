@@ -16,7 +16,7 @@ import sourceMaps from "gulp-sourcemaps";
 import path from "path";
 
 export default class TypeSriptBuilder {
-  static compileAsync (projectOrOptions, options) {
+  static buildAsync (projectOrOptions, options) {
     let project = projectOrOptions;
     if (projectOrOptions && projectOrOptions.typescript) { // project
       if (!options) options = {};

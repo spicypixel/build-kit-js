@@ -9,7 +9,7 @@ function clean() {
 }
 
 async function build() {
-  await TypeScriptBuilder.compileAsync();
+  await TypeScriptBuilder.buildAsync();
 }
 
 async function rebuild() {
