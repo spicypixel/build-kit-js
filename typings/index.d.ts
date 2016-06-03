@@ -1,5 +1,6 @@
 /// <reference path="globals/fs-extra/index.d.ts" />
 /// <reference path="globals/gulp-flatten/index.d.ts" />
+/// <reference path="globals/gulp-mocha/index.d.ts" />
 /// <reference path="globals/gulp-typescript/index.d.ts" />
 /// <reference path="globals/mocha/index.d.ts" />
 /// <reference path="globals/node/index.d.ts" />
