@@ -1,5 +1,7 @@
 "use strict";
 
+import Promise from "bluebird";
+
 // Tools
 import gulp from "gulp";
 import gulpif from "gulp-if";
