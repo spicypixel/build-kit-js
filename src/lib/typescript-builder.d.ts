@@ -1,9 +1,9 @@
-import * as ts from "gulp-typescript";
+import * as ts from "gulp-typescript/release/main";
 
 export interface TypeScriptBuildOptions {
   lint?: boolean;
   projectFile?: string;
-  compilerOptions?: ts.Params;
+  compilerOptions?: ts.Settings;
 }
 
 export default class TypeScriptBuilder {

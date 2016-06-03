@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": true,
-    "noResolve": true,
+    "noResolve": false,
     "outDir": "./",
     "preserveConstEnums": true,
     "removeComments": false,
