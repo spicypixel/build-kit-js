@@ -3,7 +3,7 @@ import * as gulp from "gulp";
 import * as mocha from "gulp-mocha";
 
 export default class MochaRunner {
-  runAsync(testPathPatterns?: string|string[], options?: MochaSetupOptions): Promise<any> {
+  static runAsync(testPathPatterns?: string|string[], options?: MochaSetupOptions): Promise<any> {
     if (!testPathPatterns)
       testPathPatterns = "./test/**/*.js";
 

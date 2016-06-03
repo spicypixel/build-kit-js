@@ -3,11 +3,8 @@ import * as path from "path";
 import ChildProcess from "./child-process";
 
 export default class DoxygenBuilder {
-  constructor() {
-  }
-
   // Install node dependencies
-  installThemeAsync(): Promise<any> {
+  static installThemeAsync(): Promise<any> {
     console.log("Installing doxygen theme ...");
 
     return ChildProcess.spawnAsync("npm", ["install"],
@@ -15,13 +12,13 @@ export default class DoxygenBuilder {
   }
 
   // Build Doxygen
-  doxygenAsync(): Promise<any> {
+  static doxygenAsync(): Promise<any> {
     console.log("Building Doxygen docs ...");
     return ChildProcess.spawnAsync("doxygen", [], { log: true });
   }
 
   // Build
-  async buildAsync(): Promise<any> {
+  static async buildAsync(): Promise<any> {
     await this.installThemeAsync();
     await this.doxygenAsync();
   }
