@@ -4,17 +4,17 @@ import ChildProcess from "./child-process";
 
 export default class DoxygenBuilder {
   // Install node dependencies
-  static installThemeAsync(): Promise<any> {
+  static async installThemeAsync(): Promise<any> {
     console.log("Installing doxygen theme ...");
 
-    return ChildProcess.spawnAsync("npm", ["install"],
-      { cwd: path.join(__dirname, "Doxygen", "theme", "bootstrap"), log: true });
+    await ChildProcess.spawnAsync("npm", ["install"],
+      { cwd: path.join(".", "Doxygen", "theme", "bootstrap"), log: true });
   }
 
   // Build Doxygen
-  static doxygenAsync(): Promise<any> {
+  static async doxygenAsync(): Promise<any> {
     console.log("Building Doxygen docs ...");
-    return ChildProcess.spawnAsync("doxygen", [], { log: true });
+    await ChildProcess.spawnAsync("doxygen", [], { log: true });
   }
 
   // Build

@@ -11,12 +11,12 @@ export default class MonoDocBuilder {
 
   constructor(outDir?: string) {
     if (!outDir)
-      outDir = path.join(__dirname, "MonoDoc");
+      outDir = path.join(".", "MonoDoc");
 
     this.outDir = outDir;
   }
 
-  updateAsync(assemblies: string[], assemblyPath?: string): Promise<any> {
+  async updateAsync(assemblies: string[], assemblyPath?: string): Promise<any> {
     // Drop .dll
     for (let i = 0; i < assemblies.length; ++i) {
       assemblies[i] = assemblies[i].replace(".dll", "");
@@ -24,7 +24,7 @@ export default class MonoDocBuilder {
 
     // Get assembly path
     if (!assemblyPath) {
-      assemblyPath = path.join(__dirname, "Source", "${assembly}",
+      assemblyPath = path.join(".", "Source", "${assembly}",
           "bin", "Release");
     }
 
@@ -41,7 +41,7 @@ export default class MonoDocBuilder {
         path.join(assemblyPath.replace("${assembly}", a), a + ".xml"));
     });
 
-    return ChildProcess.spawnAsync("mdoc", [
+    await ChildProcess.spawnAsync("mdoc", [
       "update",
       "-out:" + path.join(this.outDir, "xml"),
     ].concat(xmlParams).concat(assemblyPaths), { log: true });
@@ -62,8 +62,8 @@ export default class MonoDocBuilder {
     ], { log: true });
   }
 
-  installAsync(): Promise<any> {
-    return new Promise((resolve, reject) => {
+  async installAsync(): Promise<any> {
+    await new Promise((resolve, reject) => {
       this.getInstallPathAsync().then((installPath: string) => {
         gulp
           .src([
@@ -82,7 +82,7 @@ export default class MonoDocBuilder {
     await this.assembleAsync(prefix);
   }
 
-  getInstallPathAsync(): Promise<string> {
+  async getInstallPathAsync(): Promise<string> {
     return Promise.resolve("/Library/Frameworks/Mono.framework/External/monodoc/");
     // execute("pkg-config monodoc --variable=sourcesdir", callback);
   }
