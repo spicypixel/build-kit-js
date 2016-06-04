@@ -4,7 +4,7 @@ import ChildProcess from "./child-process";
 
 export default class DoxygenBuilder {
   // Install node dependencies
-  static async installThemeAsync(): Promise<any> {
+  static async installThemeAsync(): Promise<void> {
     console.log("Installing doxygen theme ...");
 
     await ChildProcess.spawnAsync("npm", ["install"],
@@ -12,13 +12,13 @@ export default class DoxygenBuilder {
   }
 
   // Build Doxygen
-  static async doxygenAsync(): Promise<any> {
+  static async doxygenAsync(): Promise<void> {
     console.log("Building Doxygen docs ...");
     await ChildProcess.spawnAsync("doxygen", [], { log: true });
   }
 
   // Build
-  static async buildAsync(): Promise<any> {
+  static async buildAsync(): Promise<void> {
     await this.installThemeAsync();
     await this.doxygenAsync();
   }

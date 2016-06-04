@@ -278,24 +278,27 @@ ts.createProject = function createProject(fileNameOrSettings, settings) {
 
   //   return project;
 
-  var project = new Project(tsConfigFileName, projectDirectory, tsConfigContent, getCompilerOptions(settings, projectDirectory, tsConfigFileName), settings.noExternalResolve ? true : false, settings.sortOutput ? true : false, settings.typescript);
-  // Isolated modules are only supported when using TS1.5+
-  if (project.options['isolatedModules'] && !tsApi.isTS14(project.typescript)) {
-    if (project.options.out !== undefined || project.options['outFile'] !== undefined || project.sortOutput) {
-      console.warn('You cannot combine option `isolatedModules` with `out`, `outFile` or `sortOutput`');
+  try {
+    var project = new Project(tsConfigFileName, projectDirectory, tsConfigContent, getCompilerOptions(settings, projectDirectory, tsConfigFileName), settings.noExternalResolve ? true : false, settings.sortOutput ? true : false, settings.typescript);
+    // Isolated modules are only supported when using TS1.5+
+    if (project.options['isolatedModules'] && !tsApi.isTS14(project.typescript)) {
+      if (project.options.out !== undefined || project.options['outFile'] !== undefined || project.sortOutput) {
+        console.warn('You cannot combine option `isolatedModules` with `out`, `outFile` or `sortOutput`');
+      }
+      project.options['newLine'] = ts.NewLineKind.LineFeed; //new line option/kind fails TS1.4 typecheck
+      project.options.sourceMap = false;
+      project.options.declaration = false;
+      project.options['inlineSourceMap'] = true;
+      project.compiler = new compiler.FileCompiler();
     }
-    project.options['newLine'] = ts.NewLineKind.LineFeed; //new line option/kind fails TS1.4 typecheck
-    project.options.sourceMap = false;
-    project.options.declaration = false;
-    project.options['inlineSourceMap'] = true;
-    project.compiler = new compiler.FileCompiler();
+    else {
+      project.compiler = new compiler.ProjectCompiler();
+    }
   }
-  else {
-    project.compiler = new compiler.ProjectCompiler();
+  finally {
+    if (sourceRoot)
+      settings.sourceRoot = sourceRoot;
   }
-
-  if (sourceRoot)
-    settings.sourceRoot = sourceRoot;
 
   return project;
 }

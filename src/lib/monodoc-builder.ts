@@ -16,7 +16,7 @@ export default class MonoDocBuilder {
     this.outDir = outDir;
   }
 
-  async updateAsync(assemblies: string[], assemblyPath?: string): Promise<any> {
+  async updateAsync(assemblies: string[], assemblyPath?: string): Promise<void> {
     // Drop .dll
     for (let i = 0; i < assemblies.length; ++i) {
       assemblies[i] = assemblies[i].replace(".dll", "");
@@ -47,7 +47,7 @@ export default class MonoDocBuilder {
     ].concat(xmlParams).concat(assemblyPaths), { log: true });
   }
 
-  async assembleAsync(prefix: string, assembleDir?: string): Promise<any> {
+  async assembleAsync(prefix: string, assembleDir?: string): Promise<void> {
     console.log("Assembling MonoDocs ...");
 
     if (!assembleDir)
@@ -57,12 +57,12 @@ export default class MonoDocBuilder {
 
     let prefixPath = path.join(assembleDir, prefix);
 
-    return ChildProcess.spawnAsync("mdoc", [
+    await ChildProcess.spawnAsync("mdoc", [
       "assemble", "-o", prefixPath, path.join(this.outDir, "xml")
     ], { log: true });
   }
 
-  async installAsync(): Promise<any> {
+  async installAsync(): Promise<void> {
     await new Promise((resolve, reject) => {
       this.getInstallPathAsync().then((installPath: string) => {
         gulp

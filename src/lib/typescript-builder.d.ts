@@ -7,6 +7,6 @@ export interface TypeScriptBuildOptions {
 }
 
 export default class TypeScriptBuilder {
-  static buildAsync(project: ts.Project, options?: TypeScriptBuildOptions): Promise<any>;
-  static buildAsync(options?: TypeScriptBuildOptions): Promise<any>;
+  static buildAsync(project: ts.Project, options?: TypeScriptBuildOptions): Promise<void>;
+  static buildAsync(options?: TypeScriptBuildOptions): Promise<void>;
 }
