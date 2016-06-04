@@ -4,6 +4,7 @@ import Promise from "bluebird";
 
 // Tools
 import gulp from "gulp";
+import gutil from "gulp-util";
 import gulpif from "gulp-if";
 import ts from "gulp-typescript";
 import tslint from "gulp-tslint";
@@ -46,22 +47,30 @@ export default class TypeSriptBuilder {
     let dtsSources = path.join(rootDir, "**/*.d.ts"); // ambient only
     let jsSources = path.join(rootDir, "**/*.js");
 
+    gutil.log("Starting '" + gutil.colors.cyan("TypeScript lint") + "'...");
     await new Promise((resolve, reject) => {
       let lint;
       if (options.lint) {
+        gutil.log("Linting ...");
         lint = gulp.src(tsSources)
           .pipe(tslint())
           .pipe(tslint.report("verbose"));
       } else {
+        gutil.log("Skip linting ...");
         lint = eventStream.merge([]);
       }
-      lint.once("end", resolve).once("error", reject);
+      lint.once("end", () => {
+        gutil.log("Finished '" + gutil.colors.cyan("TypeScript lint") + "'");
+        resolve();
+      }).once("error", reject);
     });
+
+    gutil.log("Starting '" + gutil.colors.cyan("TypeScript compile") + "'...");
     await new Promise((resolve, reject) => {
       let tsc = project.src()
         .pipe(gulpif(project.options.sourceMap, sourceMaps.init({ loadMaps: true })))
         .pipe(ts(project))
-        .once("end", resolve)
+        .once("end", () => gutil.log("Processed TypeScript project"))
         .once("error", reject);
 
       let js = tsc.js
@@ -70,28 +79,43 @@ export default class TypeSriptBuilder {
           includeContent: false,
           sourceRoot: sourceRoot
         })))
-        .pipe(gulp.dest(outDir));
+        .pipe(gulp.dest(outDir))
+        .once("end", () => gutil.log("Processed js"));
 
       let dts = tsc.dts
-        .pipe(gulp.dest(outDir));
+        .pipe(gulp.dest(outDir))
+        .once("end", () => gutil.log("Processed dts"));
 
       eventStream.merge(js, dts)
-        .once("end", resolve)
+        .once("end", () => {
+          gutil.log("Finished '" + gutil.colors.cyan("TypeScript compile") + "'");
+          resolve();
+        })
         .once("error", reject);
     });
+
+    gutil.log("Starting '" + gutil.colors.cyan("Copy dts") + "'...");
     await new Promise((resolve, reject) => {
-      // Copy extra JS and ambient declarations
+      // Copy extra ambient declarations
       gulp.src(dtsSources, { base: rootDir })
         .pipe(gulp.dest(outDir))
-        .once("end", resolve)
+        .once("end", () => {
+          gutil.log("Finished '" + gutil.colors.cyan("Copy dts") + "'");
+          resolve();
+        })
         .once("error", reject);
     });
+
+    gutil.log("Starting '" + gutil.colors.cyan("Copy js") + "'...");
     await new Promise((resolve, reject) => {
-      // Copy extra JS and ambient declarations
+      // Copy extra JS
       gulp.src(jsSources, { base: rootDir })
         .pipe(gulpif(options.babel, babel()))
         .pipe(gulp.dest(outDir))
-        .once("end", resolve)
+        .once("end", () => {
+          gutil.log("Finished '" + gutil.colors.cyan("Copy js") + "'");
+          resolve();
+        })
         .once("error", reject);
     });
   }
