@@ -1,6 +1,6 @@
 {
   "name": "@spicypixel-private/build-kit-js",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Spicy Pixel Build Kit JS",
   "main": "./lib/index.js",
   "publishConfig": {
