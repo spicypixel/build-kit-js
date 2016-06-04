@@ -4,7 +4,8 @@ import * as gulp from "gulp";
 import * as msbuild from "gulp-msbuild";
 
 export default class MSBuildBuilder {
-  static async buildAsync(sourcePatterns: string|string[], options?: msbuild.Options): Promise<void> {
+  static async buildAsync(sourcePatterns?: string|string[], options?: msbuild.Options): Promise<void> {
+    if (!sourcePatterns) sourcePatterns = "**/*.sln";
     await new Promise((resolve, reject) => {
       gulp
         .src(sourcePatterns)
