@@ -76,7 +76,7 @@ export default class TypeSriptBuilder {
       let js = tsc.js
         .pipe(gulpif(options.babel, babel()))
         .pipe(gulpif(project.options.sourceMap, sourceMaps.write(mapRoot, {
-          includeContent: true, // needed due to babel modifying original transcompile
+          includeContent: false,
           sourceRoot: sourceRoot
         })))
         .pipe(gulp.dest(outDir))
