@@ -3,7 +3,14 @@ import * as gulp from "gulp";
 import * as nunit from "gulp-nunit-runner";
 
 export default class NUnitRunner {
-  static async runAsync(testPathPatterns?: string | string[], options?: nunit.Options): Promise<void> {
+  static async runAsync(testPathPatternsOrOptions?: string | string[] | nunit.Options, options?: nunit.Options): Promise<void> {
+    let testPathPatterns: string | string[];
+    if (typeof testPathPatternsOrOptions === "string" || Array.isArray(testPathPatternsOrOptions)) {
+      testPathPatterns = testPathPatternsOrOptions;
+    }
+    else {
+      options = testPathPatternsOrOptions;
+    }
     if (!testPathPatterns)
       testPathPatterns = "**/bin/**/*Test.dll";
 

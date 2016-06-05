@@ -3,7 +3,14 @@ import * as gulp from "gulp";
 import * as mocha from "gulp-mocha";
 
 export default class MochaRunner {
-  static async runAsync(testPathPatterns?: string|string[], options?: MochaSetupOptions): Promise<void> {
+  static async runAsync(testPathPatternsOrOptions?: string | string[] | MochaSetupOptions, options?: MochaSetupOptions): Promise<void> {
+    let testPathPatterns: string | string[];
+    if (typeof testPathPatternsOrOptions === "string" || Array.isArray(testPathPatternsOrOptions)) {
+      testPathPatterns = testPathPatternsOrOptions;
+    }
+    else {
+      options = testPathPatternsOrOptions;
+    }
     if (!testPathPatterns)
       testPathPatterns = "./test/**/*.js";
 
