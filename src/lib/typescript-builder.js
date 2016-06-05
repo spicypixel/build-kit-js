@@ -30,8 +30,8 @@ export default class TypeSriptBuilder {
       project = ts.createProject(options.projectFile, options.compilerOptions);
     }
 
-    if (!options.lint) options.lint = true;
-    if (!options.babel) {
+    if (options.lint === undefined) options.lint = true;
+    if (options.babel === undefined) {
       if (project.options.target === typescript.ScriptTarget.ES6)
         options.babel = true;
       else
@@ -68,7 +68,7 @@ export default class TypeSriptBuilder {
     gutil.log("Starting '" + gutil.colors.cyan("TypeScript compile") + "'...");
     await new Promise((resolve, reject) => {
       let tsc = project.src()
-        .pipe(gulpif(project.options.sourceMap, sourceMaps.init({ loadMaps: false, identityMap: true, debug: true })))
+        .pipe(gulpif(project.options.sourceMap, sourceMaps.init()))
         .pipe(ts(project))
         .once("end", () => gutil.log("Processed TypeScript project"))
         .once("error", reject);
