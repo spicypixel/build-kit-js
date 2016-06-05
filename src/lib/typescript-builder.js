@@ -26,7 +26,7 @@ export default class TypeSriptBuilder {
       if (!options) options = {};
       if (!options.projectFile) options.projectFile = "tsconfig.json";
       if (!options.compilerOptions) options.compilerOptions = {};
-      options.compilerOptions.typescript = typescript;
+      if (!options.compilerOptions.typescript) options.compilerOptions.typescript = typescript;
       project = ts.createProject(options.projectFile, options.compilerOptions);
     }
 
@@ -321,7 +321,7 @@ ts.createProject = function createProject(fileNameOrSettings, settings) {
   }
   finally {
     if (sourceRoot)
-      settings.sourceRoot = sourceRoot;
+      project.options.sourceRoot = sourceRoot;
   }
 
   return project;
