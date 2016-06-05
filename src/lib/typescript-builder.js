@@ -68,7 +68,7 @@ export default class TypeSriptBuilder {
     gutil.log("Starting '" + gutil.colors.cyan("TypeScript compile") + "'...");
     await new Promise((resolve, reject) => {
       let tsc = project.src()
-        .pipe(gulpif(project.options.sourceMap, sourceMaps.init()))
+        .pipe(gulpif(project.options.sourceMap, sourceMaps.init({ loadMaps: true })))
         .pipe(ts(project))
         .once("end", () => gutil.log("Processed TypeScript project"))
         .once("error", reject);
