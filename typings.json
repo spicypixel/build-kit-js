@@ -4,6 +4,7 @@
     "chai": "registry:npm/chai#3.5.0+20160415060238",
     "chai-as-promised": "registry:npm/chai-as-promised#5.1.0+20160310030142",
     "del": "registry:npm/del#2.2.0+20160416211512",
+    "git-rev": "registry:npm/git-rev#0.2.1+20160404220307",
     "gulp": "registry:npm/gulp#3.8.0+20160211003958",
     "yargs": "registry:npm/yargs#3.31.0+20160316010718"
   },

@@ -1,0 +1,12 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/typed-typings/npm-git-rev/c7e57cbea9458d80de99aeb0b7b42bb517693f26/typings.json",
+    "raw": "registry:npm/git-rev#0.2.1+20160404220307",
+    "main": "git-rev.d.ts",
+    "version": "0.2.1",
+    "global": false,
+    "name": "git-rev",
+    "type": "typings"
+  }
+}
