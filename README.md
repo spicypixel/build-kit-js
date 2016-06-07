@@ -174,8 +174,8 @@ Create a build script like the above and save it as `gulpfile.babel.js`. Then ru
 gulp <your-task-name>
 ```
 
-Using in Continuous Integration
--------------------------------
+Continuous Integration
+----------------------
 Gulp scripts can be easily integrated into continuous integration. For example, here is a sample `.gitlab-ci.yml` for use with [GitLab](http://gitlab.com).
 
 This caches the node modules directory but keeps it maintained, then runs the test task using the project local gulp binary.
