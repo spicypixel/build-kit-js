@@ -1,3 +1,4 @@
+export { default as BuildErrorHandler, BuildErrorLevel } from "./build-error-handler";
 export { default as ChildProcess, SpawnOptions } from "./child-process";
 export { default as GitRevision } from "./git-revision";
 export { default as TypeScriptBuilder, TypeScriptBuildOptions } from "./typescript-builder";
