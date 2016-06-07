@@ -1,5 +1,5 @@
-Build Kit for JS
-================
+Build Kit JS
+============
 Build Kit is a developer library that makes it easy to perform common build-time tasks like compiling TypeScript, generating documentation (Doxygen, Monodoc, etc.), and running tests.
 
 It's a JavaScript project which makes it convenient to integrate into a build or continuous integration system using [gulp](http://gulpjs.com) and NPM. While the project itself is written in JavaScript, it can be used to simplify build tasks for other project types like C# and C++.
