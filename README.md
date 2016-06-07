@@ -20,7 +20,6 @@ async function build() {
 
 ```js
 async function test() {
-  await build();
   await BuildKit.MochaRunner.runAsync();
 }
 ```
@@ -45,7 +44,6 @@ async function buildCode() {
 
 ```js
 async function test() {
-  await buildCode();
   await BuildKit.NUnitRunner.runAsync();
 }
 ```
