@@ -4,9 +4,6 @@
   "description": "Spicy Pixel Build Kit JS",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
-  "publishConfig": {
-    "registry": "http://npm.private:4873"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/spicypixel/build-kit-js.git"
