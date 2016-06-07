@@ -1,10 +1,15 @@
 {
-  "name": "@spicypixel-private/build-kit-js",
+  "name": "@spicypixel/build-kit-js",
   "version": "0.0.32",
   "description": "Spicy Pixel Build Kit JS",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "publishConfig": {
     "registry": "http://npm.private:4873"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spicypixel/build-kit-js.git"
   },
   "scripts": {
     "prepublish": "gulp clean && gulp test",
@@ -47,6 +52,5 @@
     "typescript": "^1.8.10",
     "typings": "^1.0.4",
     "yargs": "^4.7.1"
-  },
-  "typings": "./lib/index.d.ts"
+  }
 }
