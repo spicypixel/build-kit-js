@@ -6,59 +6,95 @@ import ChildProcess from "./child-process";
 import * as fs from "fs-extra";
 let fsp = <any>Promise.promisifyAll(fs);
 
-export default class MonoDocBuilder {
-  outDir: string;
+export interface MonoDocBuilderOptions {
+  assemblyDir?: string;       // Directory to locate assemblies (default: ./Source/${assembly}/bin/Release)
+  outDir?: string;            // Directory to output docs
+  assembleDirName?: string;   // Name to use for assemble output
+  xmlDirName?: string;        // Name to use for xml output
+}
 
-  constructor(outDir?: string) {
-    if (!outDir)
-      outDir = path.join(".", "MonoDoc");
+export default class MonoDocBuilder implements MonoDocBuilderOptions {
+  private static getAssemblyDirOrDefault (options?: MonoDocBuilderOptions): string {
+    if (options && options.assemblyDir)
+      return options.assemblyDir;
 
-    this.outDir = outDir;
+    return path.join("Source", "${assembly}", "bin", "Release");
   }
 
-  async updateAsync(assemblies: string[], assemblyPath?: string): Promise<void> {
+  private static getOutDirOrDefault (options?: MonoDocBuilderOptions): string {
+    if (options && options.outDir)
+      return options.outDir;
+
+    return "MonoDoc";
+  }
+
+  private static getAssembleDirNameOrDefault (options?: MonoDocBuilderOptions): string {
+    if (options && options.assembleDirName)
+      return options.assembleDirName;
+
+    return "assemble";
+  }
+
+  private static getXmlDirNameOrDefault (options?: MonoDocBuilderOptions): string {
+    if (options && options.xmlDirName)
+      return options.xmlDirName;
+
+    return "xml";
+  }
+
+  assemblyDir: string;       // Directory to locate assemblies (default: ./Source/${assembly}/bin/Release)
+  outDir: string;            // Directory to output docs
+  assembleDirName: string;   // Name to use for assemble output
+  xmlDirName: string;        // Name to use for xml output
+
+  private get assembleDir (): string {
+    return path.join(this.outDir, this.assembleDirName);
+  }
+
+  private get xmlDir (): string {
+    return path.join(this.outDir, this.xmlDirName);
+  }
+
+  constructor(options?: MonoDocBuilderOptions) {
+    this.assemblyDir = MonoDocBuilder.getAssemblyDirOrDefault(options);
+    this.outDir = MonoDocBuilder.getOutDirOrDefault(options);
+    this.assembleDirName = MonoDocBuilder.getAssembleDirNameOrDefault(options);
+    this.xmlDirName = MonoDocBuilder.getXmlDirNameOrDefault(options);
+  }
+
+  async updateAsync(assemblies: string[]): Promise<void> {
     // Drop .dll
     for (let i = 0; i < assemblies.length; ++i) {
       assemblies[i] = assemblies[i].replace(".dll", "");
     }
 
-    // Get assembly path
-    if (!assemblyPath) {
-      assemblyPath = path.join(".", "Source", "${assembly}",
-          "bin", "Release");
-    }
-
     let assemblyPaths: string[] = [];
     assemblies.forEach(a => {
       assemblyPaths = assemblyPaths.concat(
-        path.join(assemblyPath.replace("${assembly}", a), a + ".dll"));
+        path.join(this.assemblyDir.replace("${assembly}", a), a + ".dll"));
     });
 
     let xmlParams: string[] = [];
     assemblies.forEach(a => {
       xmlParams = xmlParams.concat("-i");
       xmlParams = xmlParams.concat(
-        path.join(assemblyPath.replace("${assembly}", a), a + ".xml"));
+        path.join(this.assemblyDir.replace("${assembly}", a), a + ".xml"));
     });
 
-    await ChildProcess.spawnAsync("mdoc", [
-      "update",
-      "-out:" + path.join(this.outDir, "xml"),
-    ].concat(xmlParams).concat(assemblyPaths), { log: true });
+    let params = ["update", "-out:" + this.xmlDir]
+      .concat(xmlParams).concat(assemblyPaths);
+    await ChildProcess.spawnAsync("mdoc", params, { log: true });
   }
 
-  async assembleAsync(prefix: string, assembleDir?: string): Promise<void> {
+  async assembleAsync(prefix: string): Promise<void> {
     console.log("Assembling MonoDocs ...");
 
-    if (!assembleDir)
-      assembleDir = path.join(this.outDir, "assemble");
+    await fsp.mkdirpAsync(this.assembleDir);
 
-    await fsp.mkdirpAsync(assembleDir);
-
-    let prefixPath = path.join(assembleDir, prefix);
+    let prefixPath = path.join(this.assembleDir, prefix);
 
     await ChildProcess.spawnAsync("mdoc", [
-      "assemble", "-o", prefixPath, path.join(this.outDir, "xml")
+      "assemble", "-o", prefixPath, this.xmlDir
     ], { log: true });
   }
 
@@ -67,7 +103,7 @@ export default class MonoDocBuilder {
       this.getInstallPathAsync().then((installPath: string) => {
         gulp
           .src([
-            path.join(this.outDir, "assemble", "*"),
+            path.join(this.assembleDir, "*"),
             path.join(this.outDir, "*.source")])
           .pipe(flatten())
           .pipe(gulp.dest(installPath))
@@ -77,8 +113,8 @@ export default class MonoDocBuilder {
     });
   }
 
-  async buildAsync(prefix: string, assemblies: string[], assemblyPath?: string): Promise<any> {
-    await this.updateAsync(assemblies, assemblyPath);
+  async buildAsync(prefix: string, assemblies: string[]): Promise<any> {
+    await this.updateAsync(assemblies);
     await this.assembleAsync(prefix);
   }
 
