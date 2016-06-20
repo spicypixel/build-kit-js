@@ -83,7 +83,7 @@ export default class MonoDocBuilder implements MonoDocBuilderOptions {
 
     let params = ["update", "-out:" + this.xmlDir]
       .concat(xmlParams).concat(assemblyPaths);
-    await ChildProcess.spawnAsync("mdoc", params, { log: true });
+    await ChildProcess.spawnAsync("mdoc", params, { stdio: "inherit" });
   }
 
   async assembleAsync(prefix: string): Promise<void> {
@@ -95,7 +95,7 @@ export default class MonoDocBuilder implements MonoDocBuilderOptions {
 
     await ChildProcess.spawnAsync("mdoc", [
       "assemble", "-o", prefixPath, this.xmlDir
-    ], { log: true });
+    ], { stdio: "inherit" });
   }
 
   async installAsync(): Promise<void> {

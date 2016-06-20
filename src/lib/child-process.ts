@@ -8,7 +8,6 @@ import {
 
 export interface SpawnOptions extends NodeSpawnOptions {
   echo?: boolean;
-  log?: boolean;
 }
 
 export default class ChildProcess {
@@ -21,12 +20,6 @@ export default class ChildProcess {
     return new Promise<NodeChildProcess>((resolve, reject) => {
       let failed: boolean = false;
       let proc = spawn(command, args, options);
-      if (options && options.log) {
-        proc.stdout.setEncoding("utf8");
-        proc.stderr.setEncoding("utf8");
-        proc.stdout.pipe(process.stdout);
-        proc.stderr.pipe(process.stderr);
-      }
       proc.on("error", (error: Error) => {
         failed = true;
         reject(error);

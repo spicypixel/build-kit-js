@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 
 describe("ChildProcess", () => {
   it("should spawn", () => {
-    return ChildProcess.spawnAsync("pwd", [], { log: true }).should.be.fulfilled;
+    return ChildProcess.spawnAsync("pwd").should.be.fulfilled;
   });
 
   it("should fail spawn", () => {

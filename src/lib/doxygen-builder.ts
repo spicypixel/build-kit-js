@@ -8,13 +8,13 @@ export default class DoxygenBuilder {
     console.log("Installing doxygen theme ...");
 
     await ChildProcess.spawnAsync("npm", ["install"],
-      { cwd: path.join(".", "Doxygen", "theme", "bootstrap"), log: true });
+      { cwd: path.join(".", "Doxygen", "theme", "bootstrap"), stdio: "inherit" });
   }
 
   // Build Doxygen
   static async doxygenAsync(): Promise<void> {
     console.log("Building Doxygen docs ...");
-    await ChildProcess.spawnAsync("doxygen", [], { log: true });
+    await ChildProcess.spawnAsync("doxygen", [], { stdio: "inherit" });
   }
 
   // Build
