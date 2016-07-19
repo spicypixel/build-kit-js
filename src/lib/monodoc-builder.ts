@@ -62,7 +62,7 @@ export default class MonoDocBuilder implements MonoDocBuilderOptions {
     this.xmlDirName = MonoDocBuilder.getXmlDirNameOrDefault(options);
   }
 
-  async updateAsync(assemblies: string[]): Promise<void> {
+  async updateAsync(assemblies: string[], referencePaths?: string[]): Promise<void> {
     // Drop .dll
     for (let i = 0; i < assemblies.length; ++i) {
       assemblies[i] = assemblies[i].replace(".dll", "");
@@ -81,8 +81,16 @@ export default class MonoDocBuilder implements MonoDocBuilderOptions {
         path.join(this.assemblyDir.replace("${assembly}", a), a + ".xml"));
     });
 
+    let referenceParams: string[] = [];
+    if (referencePaths) {
+      referencePaths.forEach(r => {
+        referenceParams = referenceParams.concat("-L");
+        referenceParams = referenceParams.concat(r);
+      });
+    }
+
     let params = ["update", "-out:" + this.xmlDir]
-      .concat(xmlParams).concat(assemblyPaths);
+      .concat(xmlParams).concat(referenceParams).concat(assemblyPaths);
     await ChildProcess.spawnAsync("mdoc", params, { stdio: "inherit" });
   }
 
