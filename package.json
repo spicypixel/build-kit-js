@@ -1,6 +1,6 @@
 {
   "name": "@spicypixel/build-kit-js",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Spicy Pixel Build Kit JS",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
