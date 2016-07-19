@@ -121,8 +121,8 @@ export default class MonoDocBuilder implements MonoDocBuilderOptions {
     });
   }
 
-  async buildAsync(prefix: string, assemblies: string[]): Promise<any> {
-    await this.updateAsync(assemblies);
+  async buildAsync(prefix: string, assemblies: string[], referencePaths?: string[]): Promise<any> {
+    await this.updateAsync(assemblies, referencePaths);
     await this.assembleAsync(prefix);
   }
 
