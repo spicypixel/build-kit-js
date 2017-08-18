@@ -9,7 +9,8 @@
     "url": "https://github.com/spicypixel/build-kit-js.git"
   },
   "scripts": {
-    "prepublish": "gulp clean && gulp test",
+    "prepublishOnly": "gulp clean && gulp test",
+    "prepare": "gulp build",
     "clean": "gulp clean",
     "build": "gulp build",
     "rebuild": "gulp rebuild",
