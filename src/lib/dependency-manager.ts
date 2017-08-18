@@ -4,6 +4,7 @@ import * as flatten from "gulp-flatten";
 import * as path from "path";
 import ChildProcess from "./child-process";
 import * as fs from "fs-extra";
+import * as vfs from "vinyl-fs";
 let fsp = <any>Bluebird.promisifyAll(fs);
 
 export interface DependencyManagerOptions {
@@ -53,7 +54,7 @@ export default class DependencyManager implements DependencyManagerOptions {
 
   private async copyPatternsAsync(sourcePatterns: string | string[], destination: string, options?: any): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      let destinationOptions: gulp.DestOptions;
+      let destinationOptions: vfs.DestOptions;
 
       gulp
         .src(sourcePatterns, options)
