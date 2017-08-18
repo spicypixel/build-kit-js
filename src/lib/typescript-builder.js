@@ -1,6 +1,6 @@
 "use strict";
 
-import Bluebird from "bluebird";
+import Promise from "bluebird";
 
 // Tools
 import gulp from "gulp";
