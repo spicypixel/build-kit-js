@@ -32,12 +32,11 @@ export default class TypeSriptBuilder {
 
     if (options.lint === undefined) options.lint = true;
     if (options.babel === undefined) {
-      if (project.options.target === typescript.ScriptTarget.ES6)
+      if (project.options.target === typescript.ScriptTarget.ES2015)
         options.babel = true;
       else
         options.babel = false;
     }
-
     let rootDir = project.options.rootDir || "./";
     let outDir = project.options.outDir || "./";
     let mapRoot = project.options.mapRoot || path.relative(outDir, "./");
