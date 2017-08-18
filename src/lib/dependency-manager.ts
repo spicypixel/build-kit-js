@@ -30,7 +30,7 @@ export default class DependencyManager implements DependencyManagerOptions {
     return path.join(sourceDir, "bin", "Release");
   }
 
-  importPackageAssembly(packageName: string, nodeScope: string, nodeModuleName: string, assemblyName: string | string[]): Promise<Promise<void>[]> {
+  importPackageAssembly(packageName: string, nodeScope: string, nodeModuleName: string, assemblyName: string | string[]): Promise<void[]> {
     const binDestDir = path.join("Source", "packages", packageName, "lib");
 
     let binAssemblies: string[] = [];

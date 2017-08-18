@@ -1,4 +1,4 @@
-import * as Promise from "bluebird";
+import * as Bluebird from "bluebird";
 import * as gulp from "gulp";
 import * as nunit from "gulp-nunit-runner";
 

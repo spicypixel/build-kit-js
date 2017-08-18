@@ -1,10 +1,10 @@
-import * as Promise from "bluebird";
+import * as Bluebird from "bluebird";
 import * as gulp from "gulp";
 import * as flatten from "gulp-flatten";
 import * as path from "path";
 import ChildProcess from "./child-process";
 import * as fs from "fs-extra";
-let fsp = <any>Promise.promisifyAll(fs);
+let fsp = <any>Bluebird.promisifyAll(fs);
 
 export interface MonoDocBuilderOptions {
   assemblyDir?: string;       // Directory to locate assemblies (default: ./Source/${assembly}/bin/Release)

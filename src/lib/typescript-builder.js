@@ -1,6 +1,6 @@
 "use strict";
 
-import Promise from "bluebird";
+import Bluebird from "bluebird";
 
 // Tools
 import gulp from "gulp";
@@ -54,7 +54,7 @@ export default class TypeSriptBuilder {
         gutil.log("Linting ...");
         lint = gulp.src(tsSources)
           .pipe(tslint())
-          .pipe(tslint.report("verbose"));
+          .pipe(tslint.report());
       } else {
         gutil.log("Skip linting ...");
         lint = eventStream.merge([]);

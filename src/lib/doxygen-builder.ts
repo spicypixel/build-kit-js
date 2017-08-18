@@ -1,4 +1,3 @@
-import * as Promise from "bluebird";
 import * as path from "path";
 import ChildProcess from "./child-process";
 

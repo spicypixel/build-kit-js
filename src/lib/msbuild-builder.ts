@@ -1,4 +1,4 @@
-import * as Promise from "bluebird";
+import * as Bluebird from "bluebird";
 import * as path from "path";
 import * as gulp from "gulp";
 import * as msbuild from "gulp-msbuild";
