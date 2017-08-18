@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "git-rev": "registry:npm/git-rev#0.2.1+20160404220307"
-  },
-  "globalDependencies": {
-  }
-}

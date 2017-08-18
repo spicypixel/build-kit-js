@@ -1,11 +1,6 @@
-import * as Bluebird from "bluebird";
 import * as gulp from "gulp";
-import * as flatten from "gulp-flatten";
 import * as path from "path";
-import ChildProcess from "./child-process";
-import * as fs from "fs-extra";
 import * as vfs from "vinyl-fs";
-let fsp = <any>Bluebird.promisifyAll(fs);
 
 export interface DependencyManagerOptions {
 }
@@ -31,7 +26,7 @@ export default class DependencyManager implements DependencyManagerOptions {
     return path.join(sourceDir, "bin", "Release");
   }
 
-  importPackageAssembly(packageName: string, nodeScope: string, nodeModuleName: string, assemblyName: string | string[]): Promise<void[]> {
+  async importPackageAssemblyAsync(packageName: string, nodeScope: string, nodeModuleName: string, assemblyName: string | string[]) {
     const binDestDir = path.join("Source", "packages", packageName, "lib");
 
     let binAssemblies: string[] = [];
@@ -49,11 +44,11 @@ export default class DependencyManager implements DependencyManagerOptions {
         ));
     });
 
-    return Promise.all(promises);
+    await Promise.all(promises);
   }
 
-  private async copyPatternsAsync(sourcePatterns: string | string[], destination: string, options?: any): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  private async copyPatternsAsync(sourcePatterns: string | string[], destination: string, options?: any) {
+    await new Promise((resolve, reject) => {
       let destinationOptions: vfs.DestOptions;
 
       gulp

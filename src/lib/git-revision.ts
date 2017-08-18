@@ -1,7 +1,7 @@
 import * as gitRev from "git-rev";
 
 export default class GitRevision {
-  static branchAsync(): Promise<string> {
+  static async branchAsync() {
     return new Promise<string>((resolve, reject) => {
       gitRev.branch(resolve);
     });
@@ -14,19 +14,19 @@ export default class GitRevision {
   //   });
   // }
 
-  static longAsync(): Promise<string> {
+  static async longAsync() {
     return new Promise<string>((resolve, reject) => {
       gitRev.long(resolve);
     });
   }
 
-  static shortAsync(): Promise<string> {
+  static async shortAsync() {
     return new Promise<string>((resolve, reject) => {
       gitRev.short(resolve);
     });
   }
 
-  static tagAsync(): Promise<string> {
+  static async tagAsync() {
     return new Promise<string>((resolve, reject) => {
       gitRev.tag(resolve);
     });

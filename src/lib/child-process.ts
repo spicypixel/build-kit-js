@@ -1,5 +1,3 @@
-import * as Bluebird from "bluebird";
-
 import {
   ChildProcess as NodeChildProcess,
   SpawnOptions as NodeSpawnOptions,

@@ -1,6 +1,6 @@
 "use strict";
 
-import Promise from "bluebird";
+// import Promise from "bluebird";
 
 // Tools
 import gulp from "gulp";
@@ -32,7 +32,8 @@ export default class TypeSriptBuilder {
 
     if (options.lint === undefined) options.lint = true;
     if (options.babel === undefined) {
-      if (project.options.target === typescript.ScriptTarget.ES2015)
+      // Node doesn't fully support anything beyond ES5 and will require babel
+      if (project.options.target > typescript.ScriptTarget.ES5)
         options.babel = true;
       else
         options.babel = false;

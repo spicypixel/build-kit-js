@@ -3,7 +3,7 @@ import * as gulp from "gulp";
 import * as nunit from "gulp-nunit-runner";
 
 export default class NUnitRunner {
-  static async runAsync(testPathPatternsOrOptions?: string | string[] | nunit.Options, options?: nunit.Options): Promise<void> {
+  static async runAsync(testPathPatternsOrOptions?: string | string[] | nunit.Options, options?: nunit.Options) {
     let testPathPatterns: string | string[];
     if (typeof testPathPatternsOrOptions === "string" || Array.isArray(testPathPatternsOrOptions)) {
       testPathPatterns = testPathPatternsOrOptions;
@@ -19,7 +19,7 @@ export default class NUnitRunner {
       teamcity: false
     };
 
-    await new Promise<void>((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       gulp.src(testPathPatterns, { read: false })
         .pipe(nunit(options))
         .once("end", resolve)

@@ -17,6 +17,7 @@ declare module "gulp-msbuild" {
       fileLoggerParameters?: string; // msbuild({ fileLoggerParameters: 'LogFile=Build.log;Append;Verbosity=diagnostic' })
       consoleLoggerParameters?: string;
       loggerParameters?: string; // msbuild({ loggerParameters: 'XMLLogger,./MyLogger.dll;OutputAsHTML' })
+      emitEndEvent?: boolean; // false
     }
   }
   function msbuild(options?: msbuild.Options): NodeJS.ReadWriteStream;
