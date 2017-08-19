@@ -11,9 +11,12 @@ describe("MSBuildBuilder", function () {
 
   it("should build", async function () {
     await MSBuildBuilder.buildAsync ("./test-input/msbuild/good.csproj").should.eventually.be.fulfilled;
-    fs.unlink ("./test-input/msbuild/good.cs.exe");
+    await fs.remove ("./test-input/msbuild/bin");
+    await fs.remove ("./test-input/msbuild/obj");
   });
   it("should fail", async function () {
     await MSBuildBuilder.buildAsync ("./test-input/msbuild/bad.csproj").should.eventually.be.rejected;
+    await fs.remove ("./test-input/msbuild/bin");
+    await fs.remove ("./test-input/msbuild/obj");
   });
 });
