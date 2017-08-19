@@ -2,23 +2,23 @@
 .vscode/
 .idea/
 
-# Ignore bower (if any) 
+# Ignore bower (if any)
 bower_components/
 
 # Ignore source
 /src/
-typings/
 
 # Ignore tests
 /test/
 test-output/
+test-input/
 
 # Ignore build instructions
 .babelrc
 .gitlab-ci.yml
+gulpfile.babel.js
+package-lock.json
 tsconfig.json
 tslint.json
-typings.json
-gulpfile.babel.js
 *.lock
 *.log
