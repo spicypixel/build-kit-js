@@ -7,7 +7,7 @@ let should = chai.should();
 chai.use(chaiAsPromised);
 
 describe("MSBuildBuilder", function () {
-  this.timeout (5000);
+  this.timeout (10000);
 
   it("should build", async function () {
     await MSBuildBuilder.buildAsync ("./test-input/msbuild/good.csproj").should.eventually.be.fulfilled;
