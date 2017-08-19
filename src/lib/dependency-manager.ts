@@ -9,9 +9,23 @@ export default class DependencyManager implements DependencyManagerOptions {
   constructor(options?: DependencyManagerOptions) {
   }
 
-  getNodeModuleDir(nodeScope: string, nodeModuleName: string): string {
-    const regEx = new RegExp(".*\/node_modules\/" + nodeScope + "\/[^/]+\/");
-    const nodeModuleDir = require.resolve(nodeScope + "/" + nodeModuleName)
+  getNodeModuleDir(nodeScopeOrNodeModuleName: string, nodeModuleName?: string): string {
+    if (!nodeModuleName || nodeModuleName.length === 0) {
+      const regEx = new RegExp(".*\/node_modules\/[^/]+\/");
+      const nodeModuleDir = require.resolve(nodeScopeOrNodeModuleName)
+        .match(regEx)[0];
+      return nodeModuleDir;
+    }
+
+    if (!nodeScopeOrNodeModuleName || nodeScopeOrNodeModuleName.length === 0) {
+      const regEx = new RegExp(".*\/node_modules\/[^/]+\/");
+      const nodeModuleDir = require.resolve(nodeModuleName)
+        .match(regEx)[0];
+      return nodeModuleDir;
+    }
+
+    const regEx = new RegExp(".*\/node_modules\/" + nodeScopeOrNodeModuleName + "\/[^/]+\/");
+    const nodeModuleDir = require.resolve(nodeScopeOrNodeModuleName + "/" + nodeModuleName)
       .match(regEx)[0];
     return nodeModuleDir;
   }
