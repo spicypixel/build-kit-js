@@ -14,10 +14,13 @@ export default class NUnitRunner {
     if (!testPathPatterns)
       testPathPatterns = "**/bin/**/*Test.dll";
 
-    if (!options) options = {
-      executable: "/usr/local/bin",
-      teamcity: false
-    };
+    if (!options) options = {};
+    if (options.executable === undefined) {
+      options.executable = "/usr/local/bin";
+    }
+    if (options.teamcity === undefined) {
+      options.teamcity = false;
+    }
 
     await new Promise((resolve, reject) => {
       gulp.src(testPathPatterns, { read: false })
