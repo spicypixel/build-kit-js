@@ -7,12 +7,11 @@ export default class GitRevision {
     });
   }
 
-  // JSON parsing bug in git-rev
-  // static logAsync(): Promise<string[][]> {
-  //   return new Promise<string[][]>((resolve, reject) => {
-  //     gitRev.log(resolve);
-  //   });
-  // }
+  static async logAsync() {
+    return new Promise<string[][]>((resolve, reject) => {
+      gitRev.log(resolve);
+    });
+  }
 
   static async longAsync() {
     return new Promise<string>((resolve, reject) => {
