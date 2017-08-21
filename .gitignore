@@ -10,3 +10,4 @@ test-output/
 npm-debug.log
 yarn-error.log
 .browse.VC.db
+/types/
