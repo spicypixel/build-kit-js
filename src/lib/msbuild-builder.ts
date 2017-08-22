@@ -1,5 +1,6 @@
 import * as gulp from "gulp";
 import * as msbuild from "gulp-msbuild";
+import ChildProcess from "./child-process";
 
 export default class MSBuildBuilder {
   static async buildAsync(sourcePatternsOrOptions?: string | string[] | msbuild.Options, options?: msbuild.Options) {
@@ -33,16 +34,18 @@ export default class MSBuildBuilder {
     });
   }
 
-  static async restoreAsync(sourcePatternsOrOptions?: string | string[] | msbuild.Options, options?: msbuild.Options) {
-      let sourcePatterns: string | string[];
-      if (typeof sourcePatternsOrOptions === "string" || Array.isArray(sourcePatternsOrOptions)) {
-        sourcePatterns = sourcePatternsOrOptions;
-      }
-      else {
-        options = sourcePatternsOrOptions;
-      }
-      if (!options) options = {};
+  static async restoreAsync(sourcePatterns?: string | string[]) {
+    if (!sourcePatterns || sourcePatterns.length === 0) {
+      sourcePatterns = "**/*.sln";
+    }
+
+    if (process.platform.match(/darwin/)) {
+      await ChildProcess.spawnAsync("nuget", ["restore"].concat(sourcePatterns), { stdio: "inherit" });
+    }
+    else {
+      let options: msbuild.Options = {};
       options.targets = ["restore"];
       await this.buildAsync(sourcePatterns, options);
+    }
   }
 }
