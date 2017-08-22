@@ -19,7 +19,10 @@ export default class MSBuildBuilder {
       if (!options.toolsVersion) options.toolsVersion = undefined;
     }
 
-    if (!sourcePatterns) sourcePatterns = "**/*.sln";
+    if (!sourcePatterns) {
+      sourcePatterns = "**/*.sln";
+      if (!options.targets) options.targets = ["Build"];
+    }
 
     await new Promise((resolve, reject) => {
       gulp
