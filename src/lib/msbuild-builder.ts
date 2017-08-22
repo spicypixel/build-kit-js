@@ -13,6 +13,7 @@ export default class MSBuildBuilder {
     if (!options) options = {};
     if (options.errorOnFail === undefined) options.errorOnFail = true;
     if (options.emitEndEvent === undefined) options.emitEndEvent = true;
+    if (options.stdout === undefined) options.stdout = true;
     if (process.platform.match(/darwin/)) {
       (<any>options).msbuildPath = "msbuild";
       if (!options.toolsVersion) options.toolsVersion = undefined;
