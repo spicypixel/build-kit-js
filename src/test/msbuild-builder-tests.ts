@@ -16,7 +16,7 @@ describe("MSBuildBuilder", function () {
   });
 
   it("should restore auto", async function () {
-    await MSBuildBuilder.restoreAsync ("./test-input/msbuild/good.csproj", { stdout: false }).should.eventually.be.fulfilled;
+    await MSBuildBuilder.restoreAsync ("./test-input/msbuild/good.csproj").should.eventually.be.fulfilled;
     await fs.remove ("./test-input/msbuild/bin");
     await fs.remove ("./test-input/msbuild/obj");
   });
