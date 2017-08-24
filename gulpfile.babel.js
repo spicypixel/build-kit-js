@@ -18,7 +18,7 @@ async function rebuild() {
 }
 
 async function test() {
-  await build();
+  await rebuild();
   return new Promise((resolve, reject) => {
     return gulp.src("./test/**/*.js", { read: false })
       .pipe(mocha())

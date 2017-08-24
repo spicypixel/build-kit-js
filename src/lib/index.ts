@@ -1,6 +1,7 @@
 export { default as BuildErrorHandler, BuildErrorLevel } from "./build-error-handler";
 export { default as ChildProcess, SpawnOptions } from "./child-process";
-export { default as DependencyManager } from "./dependency-manager";
+export { default as NodeModule } from "./node-module";
+export { default as DotNetModuleReference } from "./dotnet-module-reference";
 export { default as GitRevision } from "./git-revision";
 export { default as TypeScriptBuilder, TypeScriptBuildOptions } from "./typescript-builder";
 export { default as DoxygenBuilder } from "./doxygen-builder";
