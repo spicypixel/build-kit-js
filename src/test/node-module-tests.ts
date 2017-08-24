@@ -9,22 +9,22 @@ chai.use(chaiAsPromised);
 describe("NodeModule", () => {
   it("should match root by RegExp", () => {
     "/Users/test/project/node_modules/test-module/lib/other/index.js".match(
-      NodeModule.getRootPathRegEx("test-module"))[0].
+      NodeModule.getPackageDirRegEx("test-module"))[0].
       should.equal("/Users/test/project/node_modules/test-module/");
 
     should.not.exist("/Users/test/project/node_modules/@test-scope/test-module".match(
-      NodeModule.getRootPathRegEx("@test-scope/test-module")));
+      NodeModule.getPackageDirRegEx("@test-scope/test-module")));
 
     "/Users/test/project/node_modules/@test-scope/test-module/".match(
-      NodeModule.getRootPathRegEx("@test-scope/test-module"))[0].
+      NodeModule.getPackageDirRegEx("@test-scope/test-module"))[0].
       should.equal("/Users/test/project/node_modules/@test-scope/test-module/");
 
     "/Users/test/project/node_modules/@test-scope/test-module/index.js".match(
-      NodeModule.getRootPathRegEx("@test-scope/test-module"))[0].
+      NodeModule.getPackageDirRegEx("@test-scope/test-module"))[0].
       should.equal("/Users/test/project/node_modules/@test-scope/test-module/");
   });
 
   it("should match root by path", () => {
-    NodeModule.getRootPath("chai").endsWith("/chai/").should.be.true;
+    NodeModule.getPackageDir("chai").endsWith("/chai/").should.be.true;
   });
 });

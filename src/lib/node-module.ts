@@ -13,11 +13,11 @@ export default class NodeModule {
   */
   static getPackageDir(nodeModuleName: string): string {
     return require.resolve(nodeModuleName)
-      .match(NodeModule.getRootPathRegEx(nodeModuleName))[0];
+      .match(NodeModule.getPackageDirRegEx(nodeModuleName))[0];
   }
 
   /** Returns the RegEx used to match the root path of the specified module. */
-  static getRootPathRegEx(nodeModuleName: string): RegExp {
+  static getPackageDirRegEx(nodeModuleName: string): RegExp {
     return new RegExp(".*" + nodeModuleName + "/");
   }
 
