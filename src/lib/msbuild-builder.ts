@@ -40,7 +40,10 @@ export default class MSBuildBuilder {
     }
 
     if (process.platform.match(/darwin/)) {
-      await ChildProcess.spawnAsync("nuget", ["restore"].concat(sourcePatterns), { stdio: "inherit" });
+
+      await ChildProcess.spawnAsync("nuget",
+        ["restore"].concat(sourcePatterns),
+        { stdio: "inherit" });
     }
     else {
       let options: msbuild.Options = {};

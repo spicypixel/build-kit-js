@@ -3030,6 +3030,10 @@ split@0.3:
   dependencies:
     through "2"
 
+stream-cache@^0.0.2:
+  version "0.0.2"
+  resolved "http://npm.darkavalon.homeip.net/stream-cache/-/stream-cache-0.0.2.tgz#1ac5ad6832428ca55667dbdee395dad4e6db118f"
+
 stream-combiner@~0.0.4:
   version "0.0.4"
   resolved "http://npm.darkavalon.homeip.net/stream-combiner/-/stream-combiner-0.0.4.tgz#4d5e433c185261dde623ca3f44c586bcf5c4ad14"

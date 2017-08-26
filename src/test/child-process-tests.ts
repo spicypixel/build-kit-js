@@ -13,4 +13,12 @@ describe("ChildProcess", () => {
   it("should fail spawn", () => {
     return ChildProcess.spawnAsync("undefined").should.be.rejected;
   });
+
+  it("should be silent", () => {
+    return ChildProcess.spawnAsync("pwd", [], { silentUntilError: true }).should.be.fulfilled;
+  });
+
+  it("should not be silent", () => {
+    return ChildProcess.spawnAsync("ls", ["fail"], { silentUntilError: true }).should.be.rejected;
+  });
 });

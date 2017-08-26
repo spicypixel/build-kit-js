@@ -9,3 +9,4 @@ export { default as MonoDocBuilder } from "./monodoc-builder";
 export { default as MSBuildBuilder } from "./msbuild-builder";
 export { default as MochaRunner } from "./mocha-runner";
 export { default as NUnitRunner } from "./nunit-runner";
+export { default as StreamCache } from "./stream-cache";
