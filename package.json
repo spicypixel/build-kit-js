@@ -16,6 +16,9 @@
     "test": "gulp test",
     "mocha": "mocha"
   },
+  "files": [
+    "lib/"
+  ],
   "author": "Spicy Pixel, Inc. (http://spicypixel.com)",
   "license": "MIT",
   "devDependencies": {},
