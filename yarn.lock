@@ -51,6 +51,10 @@
   dependencies:
     "@types/node" "*"
 
+"@types/git-rev@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@types/git-rev/-/git-rev-0.2.0.tgz#b660c41a6aab5df3e6e330df9c7025b426ee67c2"
+
 "@types/glob-stream@*":
   version "3.1.31"
   resolved "https://registry.npmjs.org/@types/glob-stream/-/glob-stream-3.1.31.tgz#015842260c01dab3b56578d8b37de2e57483d4ad"
@@ -76,6 +80,18 @@
   resolved "https://registry.npmjs.org/@types/gulp-mocha/-/gulp-mocha-0.0.30.tgz#a412d0741aebb53477ebe26e5a677d4ecb8cd89b"
   dependencies:
     "@types/mocha" "*"
+    "@types/node" "*"
+
+"@types/gulp-msbuild@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/@types/gulp-msbuild/-/gulp-msbuild-0.5.0.tgz#f22b2559fd748ba2331ec1d41d836cfbf40502b3"
+  dependencies:
+    "@types/node" "*"
+
+"@types/gulp-nunit-runner@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/@types/gulp-nunit-runner/-/gulp-nunit-runner-1.2.0.tgz#2b186a57a014322061865c75257587ff8e8ae52a"
+  dependencies:
     "@types/node" "*"
 
 "@types/gulp@^4.0.4":

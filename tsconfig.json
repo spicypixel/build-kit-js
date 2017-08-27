@@ -14,9 +14,7 @@
     "rootDir": "./src",
     "sourceRoot": "../src",
     "sourceMap": true,
-    "target": "esnext",
-    "baseUrl": "src/types",
-    "typeRoots": ["src/types"]
+    "target": "esnext"
   },
   "exclude": [
     "gulpfile.babel.js",
