@@ -40,7 +40,6 @@ export default class ChildProcess {
           bufferErr.pipe(process.stderr, { end: false });
           bufferErr.end();
           bufferErr = null;
-          process.stderr.write("Error: " + (error ? error.message : "") + "\nCommand: " + spawnCommandAndArgs + "\n");
         }
         reject(error);
       });
@@ -58,7 +57,6 @@ export default class ChildProcess {
               bufferErr.pipe(process.stderr, { end: false });
               bufferErr.end();
               bufferErr = null;
-              process.stderr.write(error.message);
             }
             reject(error);
           }
