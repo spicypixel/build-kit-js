@@ -12,19 +12,19 @@
   "tasks": [
     {
       "taskName": "install",
-      "args": ["npm install"]
+      "args": ["yarn install"]
     },
     {
-      "taskName": "update",
-      "args": ["npm update"]
+      "taskName": "upgrade",
+      "args": ["yarn upgrade --latest"]
     },
     {
       "taskName": "build",
-      "args": ["npm run build"]
+      "args": ["yarn run build"]
     },
     {
       "taskName": "test",
-      "args": ["npm run test"]
+      "args": ["yarn run test"]
     },
     {
       "taskName": "test-ext",
