@@ -19,12 +19,16 @@ async function rebuild() {
 
 async function test() {
   await rebuild();
-  return new Promise((resolve, reject) => {
-    return gulp.src("./test/**/*.js", { read: false })
-      .pipe(mocha())
-      .once("end", resolve)
-      .once("error", reject);
-  });
+  return gulp.src("./test/**/*.js", { read: false })
+    .pipe(mocha({
+      env: {
+        NODE_ENV: "test"
+      },
+      bail: true,
+      exit: true,
+    }))
+    .once("end", () => Promise.resolve())
+    .once("error", (err) => Promise.reject(err));
 }
 
 // Tasks
