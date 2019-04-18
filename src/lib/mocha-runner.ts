@@ -16,7 +16,7 @@ export default class MochaRunner {
     await new Promise((resolve, reject) => {
       gulp.src(testPathPatterns, { read: false })
         .pipe(mocha(options))
-        .once("end", resolve)
+        .once("finish", resolve)
         .once("error", reject);
     });
   }

@@ -1,5 +1,4 @@
 import gulp from "gulp";
-import gutil from "gulp-util";
 import mocha from "gulp-mocha";
 import del from "del";
 import TypeScriptBuilder from "./src/lib/typescript-builder";
@@ -19,21 +18,17 @@ async function rebuild() {
 
 async function test() {
   await rebuild();
-  return gulp.src("./test/**/*.js", { read: false })
-    .pipe(mocha({
-      env: {
-        NODE_ENV: "test"
-      },
-      bail: true,
-      exit: true,
-    }))
-    .once("end", () => Promise.resolve())
-    .once("error", (err) => Promise.reject(err));
+  await new Promise ((resolve, reject) => {
+    gulp.src("./test/**/*.js", { read: false })
+      .pipe(mocha())
+      .once("finish", resolve)
+      .once("error", reject);
+    });
 }
 
 // Tasks
-gulp.task("default", () => test());
-gulp.task("test", () => test());
-gulp.task("build", () => build());
-gulp.task("rebuild", () => rebuild());
-gulp.task("clean", () => clean());
+gulp.task("default", async () => test());
+gulp.task("test", async () => test());
+gulp.task("build", async () => build());
+gulp.task("rebuild", async () => rebuild());
+gulp.task("clean", async () => clean());
